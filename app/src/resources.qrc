@@ -1,0 +1,12 @@
+<RCC>
+  <qresource prefix="/style">
+    <file>../assets/LoginWidget.qss</file>
+  </qresource>
+  <qresource prefix="/image">
+    <file>../assets/background.jpg</file>
+    <file>../assets/close_button.png</file>
+    <file>../assets/checkbox_checked.svg</file>
+    <file>../assets/checkbox_unchecked.svg</file>
+    <file>../assets/photo.png</file>
+  </qresource>
+</RCC>
