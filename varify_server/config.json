@@ -1,0 +1,19 @@
+{
+  "email": {
+    "user": "qtchatting",
+    "pass": "RAhr6feWEKFM6WB3"
+  },
+
+  "mysql": {
+    "host": "",
+    "port": "",
+    "passwd": ""
+  },
+
+  "redis": {
+    "host": "",
+    "port": "",
+    "passwd": ""
+  }
+
+}

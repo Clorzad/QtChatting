@@ -1,6 +1,7 @@
 <RCC>
   <qresource prefix="/style">
     <file>../assets/LoginWidget.qss</file>
+    <file>../assets/RegsiterWidget.qss</file>
   </qresource>
   <qresource prefix="/image">
     <file>../assets/background.jpg</file>

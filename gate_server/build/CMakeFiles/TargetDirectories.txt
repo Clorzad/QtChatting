@@ -1,0 +1,3 @@
+/home/hsl/project/QtChatting/gate_server/build/CMakeFiles/gate_server.dir
+/home/hsl/project/QtChatting/gate_server/build/CMakeFiles/edit_cache.dir
+/home/hsl/project/QtChatting/gate_server/build/CMakeFiles/rebuild_cache.dir

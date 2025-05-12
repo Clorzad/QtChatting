@@ -27,7 +27,7 @@ FramelessWindow::FramelessWindow(QWidget* parent)
     setAttribute(Qt::WA_TranslucentBackground);
     QVBoxLayout* layout = new QVBoxLayout;
     setLayout(layout);
-    mainWindow = new FramelessWidget;
+    mainWindow = new FramelessWidget(this);
     layout->setContentsMargins(2, 2, 2, 2);
     layout->addWidget(mainWindow);
     setMinimumSize(mainWindow->size().width() + 4, mainWindow->size().height() + 4);
@@ -62,6 +62,7 @@ void FramelessWidget::initial()
     titleLabel->setFixedHeight(20);
     titleLabel->setAlignment(Qt::AlignLeft);
     titleLabel->setMinimumWidth(0);
+    titleLabel->setStyleSheet("QLabel {font-size: 15px; font-family: 微软雅黑; }");
     titleLayout->addWidget(titleLabel);
     titleLayout->addSpacerItem(new QSpacerItem(0, 20, QSizePolicy::Expanding, QSizePolicy::Fixed));
     QToolButton* closeButton = new QToolButton;
@@ -71,36 +72,33 @@ void FramelessWidget::initial()
     connect(closeButton, &QToolButton::clicked, this, &FramelessWidget::closeButtonClicked);
 }
 
-void FramelessWidget::set_titleLabel(const QPixmap& pixmap)
+void FramelessWidget::setTitleLabel(const QPixmap& pixmap)
 {
     titleLabel->setPixmap(pixmap);
 }
 
-void FramelessWidget::set_titleLabel(const QPixmap& pixmap, const QString title)
+void FramelessWidget::setTitleLabel(const QPixmap& pixmap, const QString title)
 {
     titleLabel->setPixmap(pixmap);
     titleLabel->setText(title);
 }
 
-void FramelessWidget::set_titleLabel(const QString title)
+void FramelessWidget::setTitleLabel(const QString title)
 {
     titleLabel->setText(title);
 }
 
 void FramelessWidget::paintEvent(QPaintEvent* ev)
 {
-
     QPainter painter(this);
-
     painter.setRenderHints(QPainter::Antialiasing | QPainter::SmoothPixmapTransform | QPainter::TextAntialiasing);
     QPainterPath path;
     path.addRoundedRect(rect(), 6, 6);
     painter.setClipPath(path);
     if (background.isNull())
-        painter.fillPath(path, QColor(255, 255, 255, 100));
+        painter.fillPath(path, QColor(Qt::white));
     else
         painter.drawPixmap(rect(), background.scaled(size(), Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation));
-
     QWidget::paintEvent(ev);
 }
 
@@ -156,3 +154,5 @@ void FramelessWidget::set_background(const QString& imagePath)
     background.load(imagePath);
     update();
 }
+
+

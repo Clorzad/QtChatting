@@ -5,6 +5,13 @@
 #include <qevent.h>
 #include <qtmetamacros.h>
 #include <qwidget.h>
+#include <QDialog>
+
+enum TipLevel {
+    ERROR,
+    INFO,
+    WARNING,
+};
 
 class FramelessWidget;
 class FramelessWindow : public QWidget {
@@ -13,9 +20,7 @@ public:
     FramelessWindow(QWidget* parent = nullptr);
 
     void setMainStyleSheet(QString styleSheet);
-
     void setSubStyleSheet(QString styleSheet);
-
 
     FramelessWidget* mainWindow;
 
@@ -28,9 +33,7 @@ private:
     QPoint m_windowStarPos;
 
     void mousePressEvent(QMouseEvent* ev) override;
-
     void mouseMoveEvent(QMouseEvent* ev) override;
-
     void mouseReleaseEvent(QMouseEvent* ev) override;
 };
 
@@ -42,11 +45,9 @@ signals:
 public:
     FramelessWidget(QWidget* parent = nullptr);
     ~FramelessWidget();
-    void set_titleLabel(const QPixmap& pixmap);
-
-    void set_titleLabel(const QPixmap& pixmap, const QString title);
-
-    void set_titleLabel(const QString title);
+    void setTitleLabel(const QPixmap& pixmap);
+    void setTitleLabel(const QPixmap& pixmap, const QString title);
+    void setTitleLabel(const QString title);
 
     /**
      * @brief 获取内容区域的QWidget
@@ -64,21 +65,14 @@ public:
     
     void set_background(const QString& imagePath);
     
-
 private:
     QLabel* titleLabel;
-
     QWidget* contentWidget;
-
     QPixmap background;
 
     void initial();
-
     void paintEvent(QPaintEvent* ev) override;
-
     void add_shadow();
-
     void closeButtonClicked();
-
-
 };
+

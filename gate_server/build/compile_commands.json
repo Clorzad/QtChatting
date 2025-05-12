@@ -1,0 +1,26 @@
+[
+{
+  "directory": "/home/hsl/project/QtChatting/gate_server/build",
+  "command": "/usr/sbin/g++ -DBOOST_SYSTEM_DYN_LINK -DBOOST_SYSTEM_NO_LIB -DBOOST_THREAD_DYN_LINK -DBOOST_THREAD_NO_LIB -I/home/hsl/project/QtChatting/gate_server/include -g -std=gnu++20 -o CMakeFiles/gate_server.dir/src/CServer.cpp.o -c /home/hsl/project/QtChatting/gate_server/src/CServer.cpp",
+  "file": "/home/hsl/project/QtChatting/gate_server/src/CServer.cpp",
+  "output": "CMakeFiles/gate_server.dir/src/CServer.cpp.o"
+},
+{
+  "directory": "/home/hsl/project/QtChatting/gate_server/build",
+  "command": "/usr/sbin/g++ -DBOOST_SYSTEM_DYN_LINK -DBOOST_SYSTEM_NO_LIB -DBOOST_THREAD_DYN_LINK -DBOOST_THREAD_NO_LIB -I/home/hsl/project/QtChatting/gate_server/include -g -std=gnu++20 -o CMakeFiles/gate_server.dir/src/HttpConnection.cpp.o -c /home/hsl/project/QtChatting/gate_server/src/HttpConnection.cpp",
+  "file": "/home/hsl/project/QtChatting/gate_server/src/HttpConnection.cpp",
+  "output": "CMakeFiles/gate_server.dir/src/HttpConnection.cpp.o"
+},
+{
+  "directory": "/home/hsl/project/QtChatting/gate_server/build",
+  "command": "/usr/sbin/g++ -DBOOST_SYSTEM_DYN_LINK -DBOOST_SYSTEM_NO_LIB -DBOOST_THREAD_DYN_LINK -DBOOST_THREAD_NO_LIB -I/home/hsl/project/QtChatting/gate_server/include -g -std=gnu++20 -o CMakeFiles/gate_server.dir/src/LogicSystem.cpp.o -c /home/hsl/project/QtChatting/gate_server/src/LogicSystem.cpp",
+  "file": "/home/hsl/project/QtChatting/gate_server/src/LogicSystem.cpp",
+  "output": "CMakeFiles/gate_server.dir/src/LogicSystem.cpp.o"
+},
+{
+  "directory": "/home/hsl/project/QtChatting/gate_server/build",
+  "command": "/usr/sbin/g++ -DBOOST_SYSTEM_DYN_LINK -DBOOST_SYSTEM_NO_LIB -DBOOST_THREAD_DYN_LINK -DBOOST_THREAD_NO_LIB -I/home/hsl/project/QtChatting/gate_server/include -g -std=gnu++20 -o CMakeFiles/gate_server.dir/src/main.cpp.o -c /home/hsl/project/QtChatting/gate_server/src/main.cpp",
+  "file": "/home/hsl/project/QtChatting/gate_server/src/main.cpp",
+  "output": "CMakeFiles/gate_server.dir/src/main.cpp.o"
+}
+]

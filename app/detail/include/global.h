@@ -1,5 +1,6 @@
 #pragma once
 #include <QByteArray>
+#include <QJsonDocument>
 
 // 请求的id
 enum ReqId {
@@ -16,3 +17,5 @@ enum ErrorCode {
 enum Modules {
     REGISTERMOD = 0, // 注册模块
 };
+
+inline QString gate_url_prefix = " ";

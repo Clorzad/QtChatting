@@ -10,14 +10,16 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 find_package(Qt6 COMPONENTS Widgets REQUIRED)
-find_package(Qt6 REQUIRED COMPONENTS Network)# Qt COMPONENTS
+find_package(Qt6 REQUIRED COMPONENTS Network)
+find_package(Qt6 COMPONENTS Core REQUIRED)# Qt COMPONENTS
 # Specify MSVC UTF-8 encoding   
 add_compile_options("$<$<C_COMPILER_ID:MSVC>:/utf-8>")
 add_compile_options("$<$<CXX_COMPILER_ID:MSVC>:/utf-8>")
 
 aux_source_directory(./src SRC1)
 aux_source_directory(./widgets SRC2)
-file(GLOB_RECURSE SRC3 ${CMAKE_CURRENT_SOURCE_DIR}/detail/*.cpp )
+file(GLOB_RECURSE SRC3 ${CMAKE_CURRENT_SOURCE_DIR}/detail/source/*.cpp )
+
 set(SRCS ${SRC1} ${SRC2} ${SRC3})
 include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}/src
@@ -30,8 +32,10 @@ set(EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_SOURCE_DIR}/out/)
 add_executable(${PROJECT_NAME}
     ${SRCS}
     ${RESOURCES}
-) 
-target_link_libraries(${PROJECT_NAME} PRIVATE Qt6::Widgets PRIVATE Qt6::Network) 
+    ${CMAKE_CURRENT_SOURCE_DIR}/detail/include/httpmgr.h
+)
+
+target_link_libraries(${PROJECT_NAME} PRIVATE Qt6::Widgets PRIVATE Qt6::Network PRIVATE Qt6::Core) 
 set_target_properties(${PROJECT_NAME} PROPERTIES
     WIN32_EXECUTABLE OFF
     MACOSX_BUNDLE ON
@@ -47,6 +51,7 @@ if(WIN32)
             --no-compiler-runtime
             --dir ${CMAKE_CURRENT_SOURCE_DIR}/out/
             $<TARGET_FILE:${PROJECT_NAME}>
-        COMMENT "Running windeployqt"
+        COMMENT "Running windeployqt; Copy config.ini"
+        COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/config.ini  ${CMAKE_CURRENT_SOURCE_DIR}/out/
     )
 endif()

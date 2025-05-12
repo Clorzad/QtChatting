@@ -1,0 +1,7 @@
+# ninja log v6
+58	10896	1746876025770470800	CMakeFiles/gate_server.dir/src/main.cpp.o	19fe3a66504b5dd
+51	14178	1746876025762956600	CMakeFiles/gate_server.dir/src/HttpConnection.cpp.o	7742429768c33cc7
+54	10321	1746876025766461600	CMakeFiles/gate_server.dir/src/LogicSystem.cpp.o	989ef6f2acbbd470
+48	11066	1746876025759174200	CMakeFiles/gate_server.dir/src/CServer.cpp.o	2ced8ffd21c0177d
+14516	19973	1746651161659129900	gate_server	589f4d644b2a4e8f
+14180	19645	1746876039891600700	/home/hsl/project/QtChatting/gate_server/out/gate_server	a95ab7933b525127
