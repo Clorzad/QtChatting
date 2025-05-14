@@ -88,7 +88,7 @@ void RegisterWidget::initHttpHandlers()
     handlers_.insert(ReqId::ID_GET_VARIFY_CODE, [this](QJsonObject json_obj) {
         int error = json_obj["error"].toInt();
         if (error != ErrorCode::SUCCESS) {
-            showTip(tr("参数错误"), false);
+            showTip(tr("服务器发生错误"), false);
             return;
         }
         auto email = json_obj["email"].toString();
