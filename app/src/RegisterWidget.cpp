@@ -199,7 +199,7 @@ void RegisterWidget::slotConfirmReg()
 void RegisterWidget::slotUpdateButtonText()
 {
     remain_time--;
-    ui->RegSendCodeButton->setText(QString("重新发送(%1秒)").arg(remain_time));
+    ui->RegSendCodeButton->setText(QString("重新发送(%1s)").arg(remain_time));
     if (remain_time <= 0) {
         send_code_timer->stop();
         ui->RegSendCodeButton->setEnabled(true);

@@ -22,6 +22,7 @@
 #include <QGraphicsDropShadowEffect>
 #include <QPainterPath>
 #include "RegisterWidget.h"
+#include "ResetWidget.h"
 
 LoginWidget::LoginWidget(QWidget* parent)
     : FramelessWindow(parent)
@@ -60,6 +61,7 @@ void LoginWidget::initialize()
 void LoginWidget::bind()
 {
     connect(ui->RegisterButton, &QPushButton::clicked, this, &LoginWidget::registerWidgetShow);
+    connect(ui->ResetPwdButton, &QPushButton::clicked, this ,&LoginWidget::resetWidgetShow);
 }
 
 void LoginWidget::registerWidgetShow()
@@ -68,3 +70,8 @@ void LoginWidget::registerWidgetShow()
     register_window->show();
 }
 
+void LoginWidget::resetWidgetShow()
+{
+    ResetWidget* reset_window = new ResetWidget;
+    reset_window->show();
+}

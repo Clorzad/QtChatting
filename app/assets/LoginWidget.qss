@@ -37,3 +37,13 @@ QPushButton#RegisterButton {
 QPushButton#RegisterButton::hover {
   color:rgb(175, 175, 175);
 }
+
+QPushButton#ResetPwdButton {
+  border: none;
+  background-color: transparent;
+  color: rgb(202, 202, 202);
+}
+
+QPushButton#ResetPwdButton::hover {
+  color: rgb(175, 175, 175);
+}

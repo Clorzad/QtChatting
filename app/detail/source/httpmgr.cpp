@@ -48,5 +48,7 @@ void HttpMgr::slotHttpFinish(ReqId id, QString res, ClientErrorCode err, Modules
     if (mod == Modules::REGISTERMOD) {
         // 发送信号通知指定模块http响应结束
         emit sig_reg_mod_finish(id, res, err);
+    } else if (mod == Modules::RESETMOD) {
+        emit sig_reset_mod_finish(id, res, err);
     }
 }

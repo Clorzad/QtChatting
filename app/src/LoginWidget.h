@@ -30,6 +30,7 @@ private:
 
 public slots:
     void registerWidgetShow();
+    void resetWidgetShow();
 };
 
 

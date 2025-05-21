@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="/style">
+    <file>../assets/ResetWidget.qss</file>
     <file>../assets/LoginWidget.qss</file>
     <file>../assets/RegsiterWidget.qss</file>
   </qresource>
