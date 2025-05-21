@@ -1,8 +1,9 @@
 #pragma once
 
 #include "Singleton.hpp"
+#include "SqlMgr.h"
 #include "common.h"
-
+#include <memory>
 
 class HttpConnection;
 class LogicSystem : public Singleton<LogicSystem> {
@@ -17,7 +18,11 @@ public:
 
 private:
     LogicSystem();
+    bool tryConnectRedis();
     // 不同的post请求和get请求调用到回调函数
     std::map<std::string, HttpHandle> post_handles_;
     std::map<std::string, HttpHandle> get_handles;
+
+    std::shared_ptr<sw::redis::Redis> redis_;
+    SqlMgr& sql_;
 };

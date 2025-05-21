@@ -1,12 +1,24 @@
 #include "LogicSystem.h"
+#include "ConfigMgr.h"
 #include "HttpConnection.h"
-#include "VarifyGrpcClient.hpp"
+#include "RedisMgr.h"
+#include "SqlMgr.h"
+#include "VarifyGrpcClient.h"
+#include "common.h"
+#include <boost/beast/core/buffers_to_string.hpp>
 #include <boost/beast/core/ostream.hpp>
+#include <exception>
 #include <json/reader.h>
 #include <json/value.h>
 #include <memory>
-LogicSystem::LogicSystem()
+#include <thread>
+
+LogicSystem::LogicSystem() : sql_(SqlMgr::getInstance())
 {
+    if (!tryConnectRedis()) {
+        std::terminate();
+    }
+
     regGet("/get_test", [](std::shared_ptr<HttpConnection> connection) {
         beast::ostream(connection->response_.body())
             << "receive get_test req";});
@@ -20,7 +32,7 @@ LogicSystem::LogicSystem()
         bool parse_success = reader.parse(body_str, src_root);
         if (!parse_success) {
             std::cerr << "Error: Failed to parse Json data" << std::endl;
-            root["error"] = ErrorCodes::ERROR_JSON;
+            root["error"] = ErrorCodes::ERR_JSON;
             std::string jsonstr = root.toStyledString();
             beast::ostream(connection->response_.body()) << jsonstr;
             return true;
@@ -30,6 +42,59 @@ LogicSystem::LogicSystem()
         debug() << "email is " << email << "\n";
         root["error"] = rsp.error();
         root["email"] = src_root["email"];
+        std::string jsonstr = root.toStyledString();
+        beast::ostream(connection->response_.body()) << jsonstr;
+        return true;
+    });
+
+    regPost("/user_register", [this](std::shared_ptr<HttpConnection> connection) {
+        auto body_str = beast::buffers_to_string(connection->request_.body().data());
+        connection->response_.set(http::field::content_type, "text/json");
+        Json::Value root;
+        Json::Reader reader;
+        Json::Value src_root;
+        bool parse_success = reader.parse(body_str, src_root);
+        if (!parse_success) {
+            std::cerr << "Error: Failed to parse Json data" << std::endl;
+            root["error"] = ErrorCodes::ERR_JSON;
+            std::string jsonstr = root.toStyledString();
+            beast::ostream(connection->response_.body()) << jsonstr;
+            return true;
+        }
+        auto email = src_root["email"].asString();
+        auto code = src_root["reg_varifycode"].asString();
+        try {
+            auto value = this->redis_->get("registerCode_" + email);
+            debug() << value << " \n";
+            if (code != value) {
+                root["error"] = ErrorCodes::ERR_VARIFYCODE;
+            } else {
+                debug() << "redis验证完成";
+                auto exist = sql_.emailExists(email);
+                debug() << "mysql验证完成";
+                if (exist == 1) {
+                    debug() << "邮箱已注册";
+                    root["error"] = ErrorCodes::ERR_EMAIL_REGISTERED;
+                } else if (exist == -1) {
+                    debug() << "mysql服务器错误";
+                    root["error"] = ErrorCodes::ERR_SERVER;
+                } else if (exist == 0) {
+                    auto name = src_root["username"].asString();
+                    auto pwd = src_root["passwd"].asString();
+                    debug() << "写入数据库前";
+                    if (sql_.regUser(name, email, pwd)) {
+                        root["error"] = ErrorCodes::SUCCESS;
+                        debug() << "成功写入";
+                    } else {
+                        debug() << "写入失败";
+                        root["error"] = ErrorCodes::ERR_SERVER;
+                    }
+                }
+            }
+        } catch (const std::exception& e) {
+            std::cerr << e.what() << std::endl;
+            root["error"] = ErrorCodes::ERR_SERVER;
+        }
         std::string jsonstr = root.toStyledString();
         beast::ostream(connection->response_.body()) << jsonstr;
         return true;
@@ -62,4 +127,27 @@ void LogicSystem::regGet(std::string url, HttpHandle http_handle)
 void LogicSystem::regPost(std::string url, HttpHandle http_handle)
 {
     post_handles_.insert(make_pair(url, http_handle));
+}
+
+bool LogicSystem::tryConnectRedis()
+{
+
+    auto& config_mgr = ConfigMgr::getInstance();
+    auto redis_host = config_mgr["RedisServer"]["host"];
+    auto redis_port = config_mgr["RedisServer"]["port"];
+    auto redis_passwd = config_mgr["RedisServer"]["passwd"];
+    auto redis_pool_size = atoi(config_mgr["RedisServer"]["pool_size"].c_str());
+    RedisMgr::getInstance().init(redis_host, redis_port, redis_passwd, redis_pool_size);
+    debug() << redis_host << ':' << redis_port;
+    redis_ = RedisMgr::getInstance().getRedis();
+    for (int i = 0; i < 5; ++i) {
+        try {
+            redis_->ping();
+            return true;
+        } catch (const std::exception& e) {
+            std::cerr << "Redis连接失败（尝试 " << i + 1 << "5): " << e.what() << std::endl;
+            std::this_thread::sleep_for(std::chrono::seconds(1));
+        }
+    }
+    return false;
 }
