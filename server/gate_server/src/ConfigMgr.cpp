@@ -70,14 +70,4 @@ SectionInfo ConfigMgr::operator[](const std::string& section)
     return config_map_[section];
 }
 
-ConfigMgr& ConfigMgr::operator=(const ConfigMgr& src)
-{
-    if (&src != this)
-        config_map_ = src.config_map_;
-    return *this;
-}
 
-ConfigMgr::ConfigMgr(const ConfigMgr& src)
-{
-    config_map_ = src.config_map_;
-}

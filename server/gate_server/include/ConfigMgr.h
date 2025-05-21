@@ -1,6 +1,7 @@
 #pragma once
 #include <map>
 #include <string>
+#include "Singleton.hpp"
 
 struct SectionInfo {
     std::map<std::string,std::string> section_data_;
@@ -11,13 +12,14 @@ struct SectionInfo {
     std::string operator[](const std::string& key);
 };
 
-class ConfigMgr {
+class ConfigMgr : public Singleton<ConfigMgr> {
+    friend class Singleton<ConfigMgr>;
 public:
-    ConfigMgr();
     SectionInfo operator[](const std::string& section);
-    ConfigMgr& operator=(const ConfigMgr& src);
-    ConfigMgr(const ConfigMgr& src);
+    ConfigMgr& operator=(const ConfigMgr& src) = delete;
+    ConfigMgr(const ConfigMgr& src) = delete;
 
 private:
+    ConfigMgr();
     std::map<std::string,SectionInfo> config_map_;
 };
