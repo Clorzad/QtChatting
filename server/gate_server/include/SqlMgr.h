@@ -8,7 +8,9 @@ class SqlMgr : public Singleton<SqlMgr> {
 public:
     bool regUser(const std::string& name, const std::string& email, const std::string& pwd);
     int emailExists(const std::string& email);
-
+    bool resetPwd(const std::string& email, const std::string& pwd);
+    bool varifyPwd(const std::string& email, const std::string& pwd);
+        
 private:
     SqlMgr();
     SqlDao& DAO_;
