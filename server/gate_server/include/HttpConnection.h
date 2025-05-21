@@ -1,13 +1,15 @@
 #pragma once
 #include "common.h"
+#include <boost/asio/io_context.hpp>
 #include <boost/asio/steady_timer.hpp>
 #include <boost/beast/core/flat_buffer.hpp>
 
 class HttpConnection : public std::enable_shared_from_this<HttpConnection> {
     friend class LogicSystem;
 public:
-    HttpConnection(tcp::socket socket);
+    HttpConnection(asio::io_context& iocontext);
     void start();
+    tcp::socket& getSocket();
 
 private:
     void checkDeadline();

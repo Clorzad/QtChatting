@@ -1,14 +1,15 @@
 #include "HttpConnection.h"
 #include "LogicSystem.h"
 #include <boost/asio/error.hpp>
+#include <boost/asio/io_context.hpp>
 #include <boost/beast/core/error.hpp>
 #include <boost/beast/http/verb.hpp>
 #include <boost/beast/http/write.hpp>
 #include <boost/core/ignore_unused.hpp>
 
 
-HttpConnection::HttpConnection(tcp::socket socket)
-    : socket_(std::move(socket))
+HttpConnection::HttpConnection(asio::io_context& iocontext)
+    : socket_(iocontext)
 {
 }
 
@@ -29,6 +30,11 @@ void HttpConnection::start()
             std::cout << "exception: " << exp.what() << std::endl;
         }
     });
+}
+
+tcp::socket& HttpConnection::getSocket()
+{
+    return socket_;
 }
 
 void HttpConnection::handleReq()

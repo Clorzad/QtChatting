@@ -9,5 +9,4 @@ public:
 private:
     tcp::acceptor acceptor_;
     asio::io_context& ioc_;
-    tcp::socket socket_;
 };
