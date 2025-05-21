@@ -2,11 +2,12 @@
 #include <cstdlib>
 #include <exception>
 #include <CServer.h>
-#include "ConfigMgr.h"
+
 
 int main(int argc, char* argv[])
 {
-    ConfigMgr config_mgr;
+    auto& config_mgr = ConfigMgr::getInstance();
+    
     auto gate_port = config_mgr["GateServer"]["port"];
     unsigned short port = atoi(gate_port.c_str());
     try {

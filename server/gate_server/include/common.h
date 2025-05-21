@@ -9,8 +9,11 @@
 #include <iostream>
 #include <map>
 #include <memory>
+#include <vector>
+#include <thread>
 #include "debug.hpp"
-
+#include "ConfigMgr.h"
+#include "RedisMgr.h"
 
 namespace beast = boost::beast;
 namespace http = beast::http;
@@ -19,9 +22,9 @@ using tcp = boost::asio::ip::tcp;
 
 enum ErrorCodes {
     SUCCESS = 0,
-    ERROR_JSON = 1001,
-    PRC_FAILED = 1002,
+    ERR_JSON = 1001,
+    ERR_RPC_FAILED = 1002,
+    ERR_EMAIL_REGISTERED = 1003,
+    ERR_VARIFYCODE = 1004,
+    ERR_SERVER = 1005,
 };
-
-class ConfigMgr;
-extern ConfigMgr config_mgr;
