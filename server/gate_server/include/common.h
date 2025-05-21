@@ -27,4 +27,10 @@ enum ErrorCodes {
     ERR_EMAIL_REGISTERED = 1003,
     ERR_VARIFYCODE = 1004,
     ERR_SERVER = 1005,
+    ERR_USER_NON = 1006,
+};
+
+enum Modules {
+    REGISTER_MOD = 0,
+    RESETPWD_MOD = 1,
 };
