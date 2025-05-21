@@ -11,9 +11,9 @@
   },
 
   "redis": {
-    "host": "",
-    "port": "",
-    "passwd": ""
+    "host": "127.0.0.1",
+    "port": "6379",
+    "passwd": "hsl011226"
   }
 
 }
