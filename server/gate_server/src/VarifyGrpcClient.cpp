@@ -7,13 +7,15 @@
 #include <grpcpp/create_channel.h>
 #include <grpcpp/security/credentials.h>
 #include <memory>
+#include "common.h"
 
-message::GetVarifyRsp VarifyGrpcClient::getVarifyCode(std::string email)
+message::GetVarifyRsp VarifyGrpcClient::getVarifyCode(std::string email, int module)
 {
     grpc::ClientContext context;
     message::GetVarifyRsp reply;
     message::GetVarifyReq request;
     request.set_email(email);
+    request.set_module(module);
     auto stub = pool_->getConnection();
     grpc::Status status = stub->GetVarifyCode(&context, request, &reply);
     if (status.ok()) {

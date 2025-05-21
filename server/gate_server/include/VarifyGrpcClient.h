@@ -1,7 +1,6 @@
 #pragma once
 #include "RingBuffer.hpp"
 #include "Singleton.hpp"
-#include "common.h"
 #include "protos/message.grpc.pb.h"
 #include "protos/message.pb.h"
 #include <condition_variable>
@@ -32,7 +31,7 @@ class VarifyGrpcClient : public Singleton<VarifyGrpcClient> {
     friend class Singleton<VarifyGrpcClient>;
 
 public:
-    message::GetVarifyRsp getVarifyCode(std::string email);
+    message::GetVarifyRsp getVarifyCode(std::string email, int module);
     
 private:
     VarifyGrpcClient();
