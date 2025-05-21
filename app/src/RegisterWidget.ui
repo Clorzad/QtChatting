@@ -117,6 +117,9 @@
              <height>35</height>
             </size>
            </property>
+           <property name="maxLength">
+            <number>6</number>
+           </property>
            <property name="alignment">
             <set>Qt::AlignmentFlag::AlignCenter</set>
            </property>
@@ -156,6 +159,9 @@
            <width>250</width>
            <height>35</height>
           </size>
+         </property>
+         <property name="maxLength">
+          <number>16</number>
          </property>
          <property name="alignment">
           <set>Qt::AlignmentFlag::AlignCenter</set>
@@ -211,6 +217,12 @@
            <height>35</height>
           </size>
          </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="maxLength">
+          <number>15</number>
+         </property>
          <property name="alignment">
           <set>Qt::AlignmentFlag::AlignCenter</set>
          </property>
@@ -230,6 +242,9 @@
            <height>35</height>
           </size>
          </property>
+         <property name="maxLength">
+          <number>254</number>
+         </property>
          <property name="alignment">
           <set>Qt::AlignmentFlag::AlignCenter</set>
          </property>
@@ -248,6 +263,12 @@
            <width>250</width>
            <height>35</height>
           </size>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="maxLength">
+          <number>16</number>
          </property>
          <property name="alignment">
           <set>Qt::AlignmentFlag::AlignCenter</set>
@@ -398,37 +419,18 @@
         <widget class="QPushButton" name="RegConfirmButton">
          <property name="minimumSize">
           <size>
-           <width>50</width>
+           <width>100</width>
            <height>35</height>
           </size>
          </property>
          <property name="maximumSize">
           <size>
-           <width>50</width>
+           <width>100</width>
            <height>35</height>
           </size>
          </property>
          <property name="text">
-          <string>确认</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="RegCancelButton">
-         <property name="minimumSize">
-          <size>
-           <width>50</width>
-           <height>35</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>50</width>
-           <height>35</height>
-          </size>
-         </property>
-         <property name="text">
-          <string>取消</string>
+          <string>注册</string>
          </property>
         </widget>
        </item>

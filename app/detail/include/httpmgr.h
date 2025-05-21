@@ -27,9 +27,9 @@ private:
     QNetworkAccessManager manager_;
     // 发送http的post请求，url请求的网址，json请求的数据，req_id请求的id，mod哪个模块发出的请求
 signals:
-    void sig_http_finish(ReqId id, QString res, ErrorCode err, Modules mod);
-    void sig_reg_mod_finish(ReqId id, QString res, ErrorCode err);
+    void sig_http_finish(ReqId id, QString res, ClientErrorCode err, Modules mod);
+    void sig_reg_mod_finish(ReqId id, QString res, ClientErrorCode err);
 
 protected slots:
-    void slotHttpFinish(ReqId id, QString res, ErrorCode err, Modules mod);
+    void slotHttpFinish(ReqId id, QString res, ClientErrorCode err, Modules mod);
 };
