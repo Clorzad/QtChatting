@@ -2,18 +2,18 @@ const grpc = require("@grpc/grpc-js")
 const message_proto = require("./proto")
 const const_module = require("./const")
 const emailModule = require("./email")
-//const { v4: uuidv4 } = require("uuid")
 const crypto = require("crypto");
 const redis_module = require("./redis")
 
 async function GetVarifyCode(call, callback) {
     console.log("email is ", call.request.email)
     try {
-        //uniqueId = uuidv4();
         const code = crypto.randomInt(0, 1000000);
         const paddedCode = code.toString().padStart(6, "0");
         console.log("varify code is ", paddedCode)
-        let bres = await redis_module.setRedisExpire(const_module.code_prefix + call.request.email, paddedCode, 1800);
+        const module = call.request.module;
+        
+        let bres = await redis_module.setRedisExpire(const_module.code_prefix[module] + call.request.email, paddedCode, 1800);
         if (!bres) {
             callback(null, {
                 email: call.request.email,
@@ -21,7 +21,12 @@ async function GetVarifyCode(call, callback) {
             });
             return;
         }
-        let text_str = '您的验证码为 ' + paddedCode + ' 三十分钟内有效'
+        if (module == const_module.CodeModule.Register) {
+            var text_str = '您正在注册，验证码为 ' + paddedCode + ' 三十分钟内有效。'
+        } else if (module == const_module.CodeModule.ResetPwd) {
+            var text_str = '您正在重置密码，验证码为 ' + paddedCode + ' 三十分钟内有效。'
+        }
+
         //发送邮件
         let mailOptions = {
             from: 'qtchatting@163.com',

@@ -8,6 +8,7 @@ service VarifyService {
 
 message GetVarifyReq {
   string email = 1;
+  int32 module = 2;
 }
 
 message GetVarifyRsp {

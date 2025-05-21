@@ -8,7 +8,8 @@ let mysql_port = config.mysql.port;
 let redis_host = config.redis.host;
 let redis_port = config.redis.port;
 let redis_passwd = config.redis.passwd;
-let code_prefix = "code_";
 
 
-module.exports = { email_pass, email_user, mysql_host, mysql_port, redis_host, redis_port, redis_passwd, code_prefix }
+
+
+module.exports = { email_pass, email_user, mysql_host, mysql_port, redis_host, redis_port, redis_passwd }

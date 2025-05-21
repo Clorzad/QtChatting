@@ -1,4 +1,4 @@
-let code_prefix = "registerCode_";
+let code_prefix = new Array("RegisterCode:", "ResetPwdCode:");
 
 const Errors = {
     Success: 0,
@@ -6,4 +6,9 @@ const Errors = {
     Exception: 2,
 };
 
-module.exports = { code_prefix, Errors }
+const CodeModule = {
+    Register: 0,
+    ResetPwd: 1
+};
+
+module.exports = { code_prefix, Errors, CodeModule }
